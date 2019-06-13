@@ -1,31 +1,37 @@
 import {Stuffy} from "./stuffy";
+import {StuffyService} from "./stuff.servics";
 
+export class StuffyApp {
+    stuffySvc: StuffyService;
 
-let stuffies: Stuffy[] = [new Stuffy("blue", 4, "whale", "x-large"),
-                        new Stuffy("purple", 6, "spider", "large"),
-                        new Stuffy("yellow", 4, "giraffe", "small"),
-                        new Stuffy("green", 3, "frog", "small"),
-                        new Stuffy("pink", 4, "ostrich", "medium") ]
+    constructor(stuffySvc : StuffyService) {
+        this.stuffySvc = stuffySvc;
+    }
+}
 
-                    console.log("enhanced for loop:");
-                    console.log("color  limbs    animal    size ");   
-                    for(let s of stuffies) {
-                        console.log(s.about());
-                    
-                    }
-                   
-                    console.log("original for loop:")
-                    console.log("color  limbs    animal    size ");  
-                    for(let i = 0; i<stuffies.length; i++) {
-                        console.log(stuffies[i].about());
-                    }
-                    console.log("Getting a stuffy by index 2:")
-                    console.log(stuffies[2].about());
-                    
-                    console.log("adding new stuffy to beginning of array (added white tiger):")
-                    stuffies.unshift(new Stuffy("white", 4,"tiger","small"));
-                    console.log(stuffies);
+let stuffyApp = new StuffyApp(new StuffyService());
+//initalize list of stuffies
+// let stuffies: Stuffy [] = [];
+//call the initalize list function
+stuffyApp.stuffySvc.initalizeList();
 
-                    console.log("Deleting item 6(index 5) from stuffies (pink ostrich):")
-                    stuffies.splice(5, 1);
-                    console.log(stuffies);
+//display the list of stuffies
+console.log("displaying list of stuffies");
+stuffyApp.stuffySvc.listStuffies();
+
+//get and display stuffy by id
+console.log("get stuffy by id and display");
+let id: number = 7;
+stuffyApp.stuffySvc.getStuffyById(id);
+
+//add a stuffy
+console.log("Add a stuffy");
+let newStuffy: Stuffy = new Stuffy(8,"test", 4, "test", "x-small");
+stuffyApp.stuffySvc.addStuffy(newStuffy);
+stuffyApp.stuffySvc.listStuffies();
+
+// deleting a stuffy by id
+console.log("remove stuffy");
+id = 2;
+stuffyApp.stuffySvc.removeById(id);
+stuffyApp.stuffySvc.listStuffies();

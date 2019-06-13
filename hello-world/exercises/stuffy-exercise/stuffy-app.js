@@ -1,27 +1,33 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var stuffy_1 = require("./stuffy");
-var stuffies = [new stuffy_1.Stuffy("blue", 4, "whale", "x-large"),
-    new stuffy_1.Stuffy("purple", 6, "spider", "large"),
-    new stuffy_1.Stuffy("yellow", 4, "giraffe", "small"),
-    new stuffy_1.Stuffy("green", 3, "frog", "small"),
-    new stuffy_1.Stuffy("pink", 4, "ostrich", "medium")];
-console.log("enhanced for loop:");
-console.log("color  limbs    animal    size ");
-for (var _i = 0, stuffies_1 = stuffies; _i < stuffies_1.length; _i++) {
-    var s = stuffies_1[_i];
-    console.log(s.about());
-}
-console.log("original for loop:");
-console.log("color  limbs    animal    size ");
-for (var i = 0; i < stuffies.length; i++) {
-    console.log(stuffies[i].about());
-}
-console.log("Getting a stuffy by index 2:");
-console.log(stuffies[2].about());
-console.log("adding new stuffy to beginning of array (added white tiger):");
-stuffies.unshift(new stuffy_1.Stuffy("white", 4, "tiger", "small"));
-console.log(stuffies);
-console.log("Deleting item 6(index 5) from stuffies (pink ostrich):");
-stuffies.splice(5, 1);
-console.log(stuffies);
+var stuff_servics_1 = require("./stuff.servics");
+var StuffyApp = /** @class */ (function () {
+    function StuffyApp(stuffySvc) {
+        this.stuffySvc = stuffySvc;
+    }
+    return StuffyApp;
+}());
+exports.StuffyApp = StuffyApp;
+var stuffyApp = new StuffyApp(new stuff_servics_1.StuffyService());
+//initalize list of stuffies
+// let stuffies: Stuffy [] = [];
+//call the initalize list function
+stuffyApp.stuffySvc.initalizeList();
+//display the list of stuffies
+console.log("displaying list of stuffies");
+stuffyApp.stuffySvc.listStuffies();
+//get and display stuffy by id
+console.log("get stuffy by id and display");
+var id = 7;
+stuffyApp.stuffySvc.getStuffyById(id);
+//add a stuffy
+console.log("Add a stuffy");
+var newStuffy = new stuffy_1.Stuffy(8, "test", 4, "test", "x-small");
+stuffyApp.stuffySvc.addStuffy(newStuffy);
+stuffyApp.stuffySvc.listStuffies();
+// deleting a stuffy by id
+console.log("remove stuffy");
+id = 2;
+stuffyApp.stuffySvc.removeById(id);
+stuffyApp.stuffySvc.listStuffies();
